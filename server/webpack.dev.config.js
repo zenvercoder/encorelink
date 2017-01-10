@@ -18,7 +18,11 @@ module.exports = {
   plugins: [
     new webpack.HotModuleReplacementPlugin(),
     new webpack.DefinePlugin({
-      'process.env.NODE_ENV': JSON.stringify('development')
+      'process.env.NODE_ENV': JSON.stringify('development'),
+      // Add your email here
+      'process.env.NODEMAILER_EMAIL': JSON.stringify('EMAIL_HERE'),
+      // Add your password here
+      'process.env.NODEMAILER_PASSWORD': JSON.stringify('PASSWORD_HERE')
     })
   ],
   module: {
