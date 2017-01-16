@@ -4,7 +4,7 @@ var nodemailer = require('nodemailer');
 //export default function () {
 module.exports = function () {
   //const transporter = nodemailer.createTransport('smtps://' + process.env.NODEMAILER_EMAIL + ':' + process.env.NODEMAILER_PASSWORD + '@smtp.gmail.com');
-  const transporter = nodemailer.createTransport('smtps://tarislar@gmail.com:nwwhuqtjqvfjxhjc@smtp.gmail.com');
+  const transporter = nodemailer.createTransport('smtps://:@smtp.gmail.com');
 
   /**
    * Sends an email to an array of users, or object (depending on setup)

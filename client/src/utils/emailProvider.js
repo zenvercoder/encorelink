@@ -3,9 +3,9 @@ var nodemailer = require('nodemailer');
 function emailProvider() {
 
   //from email:
-  const fromEmail = 'tarislar@gmail.com';
+  const fromEmail = '';
   //emailserver token:
-  const smtpToken = 'nwwhuqtjqvfjxhjc';
+  const smtpToken = '';
 
   //const transporter = nodemailer.createTransport('smtps://' + process.env.NODEMAILER_EMAIL + ':' + process.env.NODEMAILER_PASSWORD + '@smtp.gmail.com');
   const transporter = nodemailer.createTransport(`smtps://${fromEmail}:${smtpToken}@smtp.gmail.com`);
