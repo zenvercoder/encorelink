@@ -13,6 +13,7 @@ import {
 } from '../constants/reduxConstants';
 import { getUserId } from '../reducers/userReducer';
 import { get, post } from '../utils/apiHelpers';
+import { apiAction } from './modelActions';
 
 const startLoginRequest = createAction(LOGIN_REQUEST);
 const loginSuccess = createAction(LOGIN_SUCCESS);
@@ -71,3 +72,22 @@ export function checkIfLoginIsValid() {
     failAction: logoutUser
   });
 }
+
+export function sendPasswordReset(formData) {
+  return createApiAction({
+    callApi: () => post(`users/reset`, { body: formData }),
+    //successAction: receiveUser,
+    //failAction: logoutUser
+  });
+}
+// export function sendPasswordReset(formData) {
+//   return apiAction('post', 'users/reset', {
+//     body: formData,
+//     onSuccess: () => {
+//       console.log('I think it sent...');
+//       return;
+//     }
+
+      // browserHistory.push('/organizerProfile');
+//  });
+// }

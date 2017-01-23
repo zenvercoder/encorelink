@@ -1,4 +1,4 @@
-var mailerService = require('../../client/src/utils/emailProvider');
+var mailerService = require('../../server/server-utils/emailProvider');
 
 module.exports = function(user) {
     var User = user;
