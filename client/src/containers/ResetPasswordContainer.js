@@ -1,17 +1,17 @@
 import { connect } from 'react-redux';
-import { loginRequest } from '../actions/userActions';
+import { resetPasswordFromToken } from '../actions/userActions';
 import { userIsBeingFetched, isLoggedIn } from '../reducers/userReducer';
 import ResetPassword from '../components/ResetPassword';
 
 const mapStateToProps = (state) => {
   return {
-    isFetching: userIsBeingFetched(state),
-    isLoggedIn: isLoggedIn(state)
+    //Maybe log user out if currently logged in.
+    //isLoggedIn: isLoggedIn(state)
   };
 };
 
 const mapDispatchToProps = {
-  onSubmit: loginRequest
+  onSubmit: resetPasswordFromToken
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(ResetPassword);

@@ -8,11 +8,11 @@ function emailProvider() {
   }
 
   //from email:
-  var fromEmail = process.env.APP_EMAIL;// 'tarislar@gmail.com';
+  var fromEmail = process.env.APP_EMAIL || 'tarislar@gmail.com';
   //emailserver token:
-  var smtpToken = process.env.APP_EMAILPW; //'nwwhuqtjqvfjxhjc';
+  var smtpToken = process.env.APP_EMAILPW || 'lqqpsvrzvsjjcvfe';
   //SMTP server
-  var smtpServer = process.env.APP_SMTP;
+  var smtpServer = process.env.APP_SMTP || 'smtp.gmail.com';
 
   var smtpString = 'smtps://' + fromEmail + ':' + smtpToken + '@' + smtpServer;
   var transporter = nodemailer.createTransport(smtpString);

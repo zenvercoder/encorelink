@@ -34,20 +34,20 @@ class ResetPassword extends React.Component {
         <div className="column small-12 medium-6 medium-offset-3 large-4 large-offset-4">
           <form className="form-login" onSubmit={this.props.handleSubmit}>
             <Field
-              name="password1"
+              name="password"
               component="input"
               type="password"
               placeholder="New Password"
               required
               autoFocus
             />
-            <Field
-              name="password2"
+            {/* <Field
+              name="password"
               component="input"
               type="password"
               placeholder="Type Password again"
               required
-            />
+            /> */}
             <button className="button secondary" type="submit">Update Password</button>
           </form>
           <div>
