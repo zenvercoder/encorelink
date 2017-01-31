@@ -81,15 +81,23 @@ export function sendPasswordReset(formData) {
   });
 }
 
-export function resetPasswordFromToken(formData) {
-  // var id = this.props.location.query.id;
-  // var token = this.props.location.query.token;
+export function resetPasswordFromToken(newPass, uid, token) {
 
-  console.log(formData);
+  //console.log('users/?' + uid + 'access_token=' + token);
+  //console.log(formData);
 
-  return createApiAction({
-    //callApi: () => patch('users/?' + id + 'access_token=' + token, { body: formData })
-    callApi: () => patch('users/7?access_token=rgGgipnQ1UeD2GpWN5wuEVh0r5qsvIs4BwkmfZkfz4fAcm8Bv7T4DFp61MLtBJSa', { body: formData })
+
+  //return createApiAction({
+    //callApi: () => patch('users/?' + uid + '&access_token=' + token, { body: {password: newPass} }),
+    
+    return apiAction('patch', `users/${uid}?access_token=${token}`, {
+    body: {password: newPass},
+    onSuccess: () => {
+      console.log('I think it sent...');
+      return;
+    }
+
+    //callApi: () => patch('users/7?access_token=rgGgipnQ1UeD2GpWN5wuEVh0r5qsvIs4BwkmfZkfz4fAcm8Bv7T4DFp61MLtBJSa', { body: formData })
     //http://localhost:3000/api/users/7?access_token=3UqcYtWsOMGy8KsosmCPTPVXhh7a83EYh7V4mpfH8aFHftK8GB5AXWvMkeFckb3V
     //successAction: receiveUser,
     //failAction: logoutUser

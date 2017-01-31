@@ -10,7 +10,7 @@ module.exports = function(user) {
       var email = info.email;
       var user_id = info.accessToken.userId;
 
-      var resetURL = `http://localhost:8080/resetPassword/?id=${user_id}?token=${accessToken}`;
+      var resetURL = `http://localhost:8080/resetPassword/?id=${user_id}&token=${accessToken}`;
 
       var emailObject = {
         to: email,
