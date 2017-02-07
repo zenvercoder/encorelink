@@ -5,7 +5,6 @@ import ForgotPassword from '../components/ForgotPassword';
 
 const mapStateToProps = (state) => {
   return {
-
   };
 };
 

@@ -53,6 +53,9 @@ class Login extends React.Component {
           <div>
             <Link to="/">Go back to Landing</Link>
           </div>
+          <div>
+            <Link to="/forgotPassword">Forgot Password?</Link>
+          </div>
         </div>
       </div>
     );

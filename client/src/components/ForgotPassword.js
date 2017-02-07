@@ -16,6 +16,14 @@ class ForgotPassword extends React.Component {
     }).isRequired
   };
 
+  constructor(props) {
+    super(props)
+    this.state = {
+      resetEmailSent: false
+    }
+    this.handleSendEmail = this.handleSendEmail.bind(this);
+  }
+
   componentWillReceiveProps(nextProps) {
     if (nextProps.isLoggedIn) {
       const locationState = nextProps.location.state;
@@ -28,11 +36,22 @@ class ForgotPassword extends React.Component {
     }
   }
 
-  render() {
-    return (
-      <div className="login row">
-        <div className="column small-12 medium-6 medium-offset-3 large-4 large-offset-4">
-          <form className="form-login" onSubmit={this.props.handleSubmit}>
+  handleSendEmail(event, handleSubmit) {
+    event.preventDefault();
+    this.setState({
+      resetEmailSent: true
+    });
+    this.props.handleSubmit();
+  }
+
+  renderMessage() {
+    if (this.state.resetEmailSent) {
+      return (
+        <h2>Email sent.</h2>
+      )
+    } else {
+      return (
+          <form className="form-login" onSubmit={this.handleSendEmail}>
             <Field
               name="email"
               component="input"
@@ -43,6 +62,15 @@ class ForgotPassword extends React.Component {
             />
             <button className="button secondary" type="submit">Reset Password</button>
           </form>
+          )
+        }
+    }
+
+  render() {
+    return (
+      <div className="login row">
+        <div className="column small-12 medium-6 medium-offset-3 large-4 large-offset-4">
+          {this.renderMessage()}
           <div>
             <Link to="/">Go back to Landing</Link>
           </div>

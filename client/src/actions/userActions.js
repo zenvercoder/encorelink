@@ -82,37 +82,11 @@ export function sendPasswordReset(formData) {
 }
 
 export function resetPasswordFromToken(newPass, uid, token) {
-
-  //console.log('users/?' + uid + 'access_token=' + token);
-  //console.log(formData);
-
-
-  //return createApiAction({
-    //callApi: () => patch('users/?' + uid + '&access_token=' + token, { body: {password: newPass} }),
-    
     return apiAction('patch', `users/${uid}?access_token=${token}`, {
     body: {password: newPass},
     onSuccess: () => {
-      console.log('I think it sent...');
-      return;
+      browserHistory.push('/login');
+    return;
     }
-
-    //callApi: () => patch('users/7?access_token=rgGgipnQ1UeD2GpWN5wuEVh0r5qsvIs4BwkmfZkfz4fAcm8Bv7T4DFp61MLtBJSa', { body: formData })
-    //http://localhost:3000/api/users/7?access_token=3UqcYtWsOMGy8KsosmCPTPVXhh7a83EYh7V4mpfH8aFHftK8GB5AXWvMkeFckb3V
-    //successAction: receiveUser,
-    //failAction: logoutUser
   });
 }
-
-
-// export function sendPasswordReset(formData) {
-//   return apiAction('post', 'users/reset', {
-//     body: formData,
-//     onSuccess: () => {
-//       console.log('I think it sent...');
-//       return;
-//     }
-
-      // browserHistory.push('/organizerProfile');
-//  });
-// }
