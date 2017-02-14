@@ -17,10 +17,10 @@ class ForgotPassword extends React.Component {
   };
 
   constructor(props) {
-    super(props)
+    super(props);
     this.state = {
       resetEmailSent: false
-    }
+    };
     this.handleSendEmail = this.handleSendEmail.bind(this);
   }
 
@@ -36,7 +36,7 @@ class ForgotPassword extends React.Component {
     }
   }
 
-  handleSendEmail(event, handleSubmit) {
+  handleSendEmail(event) {
     event.preventDefault();
     this.setState({
       resetEmailSent: true
@@ -48,23 +48,23 @@ class ForgotPassword extends React.Component {
     if (this.state.resetEmailSent) {
       return (
         <h2>Email sent.</h2>
-      )
-    } else {
-      return (
-          <form className="form-login" onSubmit={this.handleSendEmail}>
-            <Field
-              name="email"
-              component="input"
-              type="text"
-              placeholder="Enter your email"
-              required
-              autoFocus
-            />
-            <button className="button secondary" type="submit">Reset Password</button>
-          </form>
-          )
-        }
+      );
     }
+
+    return (
+      <form className="form-login" onSubmit={this.handleSendEmail}>
+        <Field
+          name="email"
+          component="input"
+          type="text"
+          placeholder="Enter your email"
+          required
+          autoFocus
+        />
+        <button className="button secondary" type="submit">Reset Password</button>
+      </form>
+    );
+  }
 
   render() {
     return (

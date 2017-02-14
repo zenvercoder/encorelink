@@ -82,11 +82,11 @@ export function sendPasswordReset(formData) {
 }
 
 export function resetPasswordFromToken(newPass, uid, token) {
-    return apiAction('patch', `users/${uid}?access_token=${token}`, {
-    body: {password: newPass},
+  return apiAction('patch', `users/${uid}?access_token=${token}`, {
+    body: { password: newPass },
     onSuccess: () => {
       browserHistory.push('/login');
-    return;
+      return;
     }
   });
 }
