@@ -13,7 +13,8 @@ class ResetPassword extends React.Component {
       state: PropTypes.shape({
         nextPathname: PropTypes.string
       })
-    }).isRequired
+    }).isRequired,
+    isLoggedIn: PropTypes.bool.isRequired,
   };
 
   componentWillReceiveProps(nextProps) {
