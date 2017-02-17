@@ -1,12 +1,7 @@
 import { browserHistory } from 'react-router';
-import { createApiAction, createAction, createErrorAction } from '../utils/reduxActions';
-import { put } from '../utils/apiHelpers';
-import { getUserId, getUser } from '../reducers/userReducer';
-import {
-  SIGNUP_FOR_EVENT_FAILURE,
-  SIGNUP_FOR_EVENT_SUCCESS,
-  SIGNUP_FOR_EVENT
-} from '../constants/reduxConstants';
+import { PENDING, APPROVED, REJECTED } from '../constants/eventAttendingStatus';
+import { getUserId } from '../reducers/userReducer';
+import { getModels } from '../reducers/modelsReducer';
 import { correctDatesForKeys } from '../utils/dateFormatting';
 import { apiAction } from './modelActions';
 
@@ -15,7 +10,7 @@ export function createEvent(formData) {
     body: correctDatesForKeys(formData, ['date', 'endDate']),
 
     onSuccess: (res, state) => {
-      const organizations = getUser(state).organizations || [];
+      const organizations = getModels(state, `users/${getUserId(state)}/organization`) || [];
       if (organizations.length) {
         browserHistory.push('/events');
         return;
@@ -26,23 +21,39 @@ export function createEvent(formData) {
   });
 }
 
-const signUpForEventStart = createAction(SIGNUP_FOR_EVENT);
-const signUpForEventSuccess = createAction(SIGNUP_FOR_EVENT_SUCCESS);
-const signUpForEventFailure = createErrorAction(SIGNUP_FOR_EVENT_FAILURE);
-
 export function signUpForEvent(event) {
-  return createApiAction({
-    callApi: (state) => put(`users/${getUserId(state)}/eventsAttending/rel/${event.id}`, {
-      body: {
-        status: 'accepted' // until we actually implement a way to accept these
-      }
-    }),
-
-    startAction: () => signUpForEventStart(),
-    successAction: (res) => {
-      browserHistory.push('/eventsAttending');
-      return signUpForEventSuccess(res);
+  return apiAction('put', (state) =>
+  `users/${getUserId(state)}/eventsAttending/rel/${event.id}`, {
+    body: {
+      status: PENDING
     },
-    failAction: (error) => signUpForEventFailure(error)
+    onSuccess: () => {
+      browserHistory.push('/dashboard');
+    }
+  });
+}
+
+export function cancelSignUpForEvent(event) {
+  return apiAction('delete', (state) =>
+  `users/${getUserId(state)}/eventsAttending/rel/${event.id}`, {
+    onSuccess: () => {
+      browserHistory.push('/dashboard');
+    }
+  });
+}
+
+export function approveEventMusician(eventMusician) {
+  return apiAction('put', `eventVolunteers/${eventMusician.id}`, {
+    body: {
+      status: APPROVED
+    }
+  });
+}
+
+export function rejectEventMusician(eventMusician) {
+  return apiAction('put', `eventVolunteers/${eventMusician.id}`, {
+    body: {
+      status: REJECTED
+    }
   });
 }
