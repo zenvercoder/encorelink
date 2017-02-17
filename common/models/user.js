@@ -16,7 +16,7 @@ module.exports = function(user) {
         to: email,
         subject: 'Your EncoreLink account recovery',
         text: '',
-        html: `Hi ${User.name}',
+        html: `Hi ${User.name},
               <p>Somebody recently asked to reset your EncoreLink password.</p>
               <p><a href='${resetURL}'>Click here to change your password.</a></p>`
       }
