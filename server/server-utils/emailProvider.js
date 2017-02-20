@@ -3,10 +3,12 @@ var nodemailer = require('nodemailer');
 function emailProvider() {
 
   //define environment variables for e-mail
-  if (!process.env.APP_EMAIL || !process.env.APP_EMAILPW) {
+  if (!process.env.APP_EMAIL || !process.env.APP_EMAILPW || !process.env.APP_SMTP) {
     console.log("WARNING: No email address or password provided as environment variable - app cannot send email.")
+    if (process.env.NODE_ENV == 'production'){
+      process.exit();
+    }
   }
-
   //from email:
   var fromEmail = process.env.APP_EMAIL; // 'email-address'
   //emailserver token:
@@ -14,7 +16,7 @@ function emailProvider() {
   //SMTP server
   var smtpServer = process.env.APP_SMTP; // 'smtp.domain.com';
 
-  var smtpString = 'smtps://' + fromEmail + ':' + smtpToken + '@' + smtpServer;
+  var smtpString = `smtps://${fromEmail}:${smtpToken}@${smtpServer}`;
   var transporter = nodemailer.createTransport(smtpString);
 
   this.sendEmail = function (mailObject, callback) {

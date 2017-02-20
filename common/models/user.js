@@ -10,8 +10,13 @@ module.exports = function(user) {
       var email = info.email;
       var user_id = info.accessToken.userId;
 
-      var resetURL = 'http://localhost:8080/resetPassword/?id=' + user_id + '&token=' + accessToken;
+      if (!process.env.APP_URL) {
+        console.log("WARNING: No APP_URL defind. Cannot compose reset link in user.js");
+      }
 
+      //var resetURL = 'http://localhost:8080/resetPassword/?id=' + user_id + '&token=' + accessToken;
+      var resetURL = process.env.APP_URL + '/resetPassword/?id=' + user_id + '&token=' + accessToken;
+   
       var emailObject = {
         to: email,
         subject: 'Your EncoreLink account recovery',
