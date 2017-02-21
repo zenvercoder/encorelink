@@ -5,7 +5,6 @@ module.exports = function(user) {
 
 
     User.on('resetPasswordRequest', function(info){
-      var MailService = new mailerService();
       var accessToken = info.accessToken.id;
       var email = info.email;
       var user_id = info.accessToken.userId;
@@ -14,7 +13,6 @@ module.exports = function(user) {
         console.log("WARNING: No APP_URL defind. Cannot compose reset link in user.js");
       }
 
-      //var resetURL = 'http://localhost:8080/resetPassword/?id=' + user_id + '&token=' + accessToken;
       var resetURL = process.env.APP_URL + '/resetPassword/?id=' + user_id + '&token=' + accessToken;
    
       var emailObject = {
@@ -26,13 +24,11 @@ module.exports = function(user) {
               <p><a href='${resetURL}'>Click here to change your password.</a></p>`
       }
 
-      MailService.sendEmail(emailObject, function(err, info){
-        if (err) {
-          return err.message;
-        } else {
-          return 'success';
-        }
-      });;
+      mailerService(emailObject, (err) => {
+        if (err) throw err;
+
+        console.log('Email sent.')
+      })
     });
 
 };
