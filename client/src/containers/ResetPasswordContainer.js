@@ -1,6 +1,6 @@
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router';
-import React from 'react';
+import React, { PropTypes } from 'react';
 import ResetPassword from '../components/ResetPassword';
 import { resetPasswordFromToken } from '../actions/userActions';
 
@@ -12,6 +12,16 @@ const ResetPasswordContainer = (props) => {
   return (
     <ResetPassword onSubmit={onResetPassword} />
   );
+};
+
+ResetPasswordContainer.propTypes = {
+  resetPasswordFromToken: PropTypes.func.isRequired,
+  location: PropTypes.shape({
+    query: PropTypes.shape({
+      id: PropTypes.string,
+      token: PropTypes.string
+    })
+  }).isRequired
 };
 
 

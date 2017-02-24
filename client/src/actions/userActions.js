@@ -75,7 +75,7 @@ export function checkIfLoginIsValid() {
 
 export function sendPasswordReset(formData) {
   return createApiAction({
-    callApi: () => post('users/reset', {body: formData}),
+    callApi: () => post('users/reset', { body: formData }),
     //successAction: receiveUser,
     //failAction: logoutUser
   });
