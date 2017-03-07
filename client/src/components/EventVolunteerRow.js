@@ -2,15 +2,16 @@ import React, { PropTypes } from 'react';
 import { Link } from 'react-router';
 import { getFormattedDayAndTime } from '../utils/dateFormatting';
 
-const EventVolunteerRow = ({ eventVolunteer, isCurrentlyPending, approveEventMusician, rejectEventMusician }) => {
-  const { day, time } = getFormattedDayAndTime(eventVolunteer.event.date, eventVolunteer.event.endDate);
+const EventVolunteerRow = ({ event, isCurrentlyPending, approveEventMusician, rejectEventMusician }) => {
+  const { day, time } = getFormattedDayAndTime(event.date, event.endDate);
+  const [volunteer] = event.volunteers;
 
   return (
     <tr>
       <td>
-        {eventVolunteer.volunteer.email}
+        {volunteer.email}
         <br />
-        <Link to={`/musician/${eventVolunteer.volunteer.id}`}>View Profile</Link>
+        <Link to={`/musician/${volunteer.id}`}>View Profile</Link>
       </td>
       <td>{day} {time}</td>
       {isCurrentlyPending &&
@@ -18,17 +19,17 @@ const EventVolunteerRow = ({ eventVolunteer, isCurrentlyPending, approveEventMus
         <div className="button-group">
           <a
             className="button secondary"
-            href={`mailto:${eventVolunteer.volunteer.email}`}
+            href={`mailto:${volunteer.email}`}
           >Contact
           </a>
           <button
             className="button success"
-            onClick={() => approveEventMusician(eventVolunteer)}
+            onClick={() => approveEventMusician(volunteer)}
           >Approve
           </button>
           <button
             className="button alert"
-            onClick={() => rejectEventMusician(eventVolunteer)}
+            onClick={() => rejectEventMusician(volunteer)}
           >Pass
           </button>
         </div>
@@ -38,15 +39,13 @@ const EventVolunteerRow = ({ eventVolunteer, isCurrentlyPending, approveEventMus
 };
 
 EventVolunteerRow.propTypes = {
-  eventVolunteer: PropTypes.shape({
-    event: PropTypes.shape({
-      date: PropTypes.string.isRequired,
-      endDate: PropTypes.string.isRequired,
-    }),
-    volunteer: PropTypes.shape({
+  event: PropTypes.shape({
+    date: PropTypes.string.isRequired,
+    endDate: PropTypes.string.isRequired,
+    volunteers: PropTypes.arrayOf(PropTypes.shape({
       email: PropTypes.string.isRequired,
       id: PropTypes.number.isRequired
-    })
+    }))
   }),
   approveEventMusician: PropTypes.func.isRequired,
   rejectEventMusician: PropTypes.func.isRequired,

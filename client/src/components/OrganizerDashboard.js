@@ -1,22 +1,39 @@
 import React, { PropTypes } from 'react';
 import { PENDING, APPROVED } from '../constants/eventAttendingStatus';
 import EventVolunteerRow from '../components/EventVolunteerRow';
+import EventRow from '../components/EventRow';
+
+const pendingFilter = (event = {}) => event.volunteers && event.volunteers[0] && event.volunteers.status === PENDING;
+const upcomingFilter = (event = {}) => event.volunteers && event.volunteers[0] && event.volunteers.status === APPROVED;
+const unassignedFilter = (event = {}) => !pendingFilter(event) && !upcomingFilter(event);
 
 const OrganizerDashboard = ({ data, approveEventMusician, rejectEventMusician }) => {
   const pendingEventVolunteers = data
-    .filter(eventVolunteer => eventVolunteer.status === PENDING)
-    .map(eventVolunteer => <EventVolunteerRow
-      eventVolunteer={eventVolunteer}
-      isCurrentlyPending
-      key={eventVolunteer.id}
-      approveEventMusician={approveEventMusician}
-      rejectEventMusician={rejectEventMusician}
-    />);
+    .filter(pendingFilter)
+    .map(event =>
+      <EventVolunteerRow
+        event={event}
+        isCurrentlyPending
+        key={event.volunteers[0].id}
+        approveEventMusician={approveEventMusician}
+        rejectEventMusician={rejectEventMusician}
+      />
+    );
+
   const approvedEventVolunteers = data
-    .filter(eventVolunteer => eventVolunteer.status === APPROVED)
-    .map(eventVolunteer => <EventVolunteerRow eventVolunteer={eventVolunteer}
-      key={eventVolunteer.id}
-    />);
+    .filter(upcomingFilter)
+    .map(event =>
+      <EventVolunteerRow
+        event={event}
+        key={event.volunteers[0].id}
+      />
+    );
+
+  const unassignedEvents = data
+    .filter(unassignedFilter)
+    .map(event =>
+      <EventRow key={event.id} event={event} />
+    );
 
   return (
     <div className="row">
@@ -45,6 +62,14 @@ const OrganizerDashboard = ({ data, approveEventMusician, rejectEventMusician })
                 {approvedEventVolunteers}
               </tbody>
             </table>
+          </div>
+        </div>
+        <div className="card">
+          <div className="card-divider">
+            <h5>Open slots</h5>
+          </div>
+          <div className="card-section">
+            {unassignedEvents}
           </div>
         </div>
       </div>
