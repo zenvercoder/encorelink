@@ -3,7 +3,7 @@ var mailerService = require('../../server/server-utils/emailProvider');
 module.exports = function(user) {
     var User = user;
     var frontendUrl = "";
-
+    console.log(frontendUrl);
     /* 
     WARNING: Utterly disgusting, dirty hack.
     So in order for our backend to find the correct URL to direct the client to in the email
