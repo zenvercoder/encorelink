@@ -33,10 +33,6 @@ module.exports = function(user) {
       var email = info.email;
       var user_id = info.accessToken.userId;
 
-      if (!process.env.APP_URL) {
-        console.log("WARNING: No APP_URL defind. Cannot compose reset link in user.js");
-      }
-
       var resetURL = frontendUrl + '/resetPassword/?id=' + user_id + '&token=' + accessToken;
    
       var emailObject = {
