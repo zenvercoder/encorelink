@@ -123,7 +123,6 @@ class Register extends React.Component {
             </div>
           </div>
           <div className="tabs-content" data-tabs-content="register-tabs">
-
             <div className={'tabs-panel ' + (this.state.tab === "Organizer" ? "is-active" : "")} id="panel2">
               <label>Email
                 <input type="text"
@@ -142,7 +141,6 @@ class Register extends React.Component {
               </label>
             </div>
           </div>
-
 
           <label className="terms">By clicking Register, you agree to the site
             {' '}
